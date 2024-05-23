@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box, Container } from '@mui/material';
 import { styled } from '@mui/system';
+import { HashLink } from "react-router-hash-link";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AppBarStyled = styled(AppBar)({
   background: '#fff',
@@ -28,7 +31,7 @@ const Section = styled(Box)({
   alignItems: 'center',
   justifyContent: 'center',
   position: 'relative',
-  width: '1180px',
+  width: '1241px',
   height: '100vh',
   gap: '0px',
   opacity: '0px',
@@ -105,14 +108,24 @@ const BookMeetingBox = styled(Box)({
   right: '-20px',
 });
 
+
+
 const LandingPage = () => {
+    useEffect(() => {
+        toast.info('Click on DashBoard to view Dashboard page', {
+            position: "top-center",
+            autoClose: 2000
+            });
+     
+    }, [])
   return (
     <>
+     <ToastContainer /> 
       <AppBarStyled position="static" elevation={0}>
         <ToolbarStyled>
           <Box component="img" src="yourSite.png" alt="Your Site" sx={{ height: '39px', width: '246.46px', top: '17px', left: '44px' }} />
           <div >
-            <Button color="inherit" style={{fontWeight: 'bold',}}>About</Button>
+            <Button color="inherit" style={{fontWeight: 'bold',}}> <HashLink style={{textDecoration:'none',color:'black'}} to={"/dashboard"}>Dashboad</HashLink></Button>
             <Button color="inherit" style={{fontWeight: 'bold',}}>How it works</Button>
             <Button color="inherit" style={{fontWeight: 'bold',}}>Pricing</Button>
           </div>

@@ -1,33 +1,11 @@
 import React from 'react';
-import {
-  CssBaseline,
-  Box,
-  Typography,
-  AppBar,
-  Toolbar,
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Divider,
-  Grid,
-  Paper,
-  CircularProgress,
-  Table,
-  TableContainer,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-} from '@mui/material';
-import { Inbox as InboxIcon, Mail as MailIcon } from '@mui/icons-material';
+import { Grid, Paper, Typography, Box, CircularProgress, Table, TableContainer, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import DashboardLayout from './DashBoardLayout';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const drawerWidth = 290; 
 const data = {
   labels: ['21 Jan', '22 Jan', '23 Jan', '24 Jan', '25 Jan', '26 Jan', '27 Jan'],
   datasets: [
@@ -50,30 +28,35 @@ const options = {
     legend: {
       position: 'top',
       labels: {
-        color: '#fff', 
+        color: '#fff',
       },
     },
     title: {
       display: true,
       text: 'Leads and Proposals Over Time',
-      color: '#fff', 
+      color: '#fff',
     },
   },
   scales: {
     x: {
       grid: {
-        color: '#455A64', // X-axis grid color
+        color: '#455A64',
+      },
+      ticks: {
+        color: '#fff', // X-axis label color
       },
     },
     y: {
       grid: {
-        color: '#455A64', // Y-axis grid color
+        color: '#455A64',
+      },
+      ticks: {
+        color: '#fff', // Y-axis label color
       },
     },
   },
 };
 
-// random data fix later
 const createData = () => {
   const rows = [];
   for (let i = 1; i <= 5; i++) {
@@ -87,92 +70,62 @@ const createData = () => {
   return rows;
 };
 
+const paperStyle = {
+  p: 2,
+  textAlign: 'center',
+  bgcolor: 'transparent',
+  boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.1)', // Light white border
+  border: '1px solid rgba(255, 255, 255, 0.3)', // Light white border
+};
+
+const transparentBackground = {
+  bgcolor: 'transparent',
+  boxShadow: 'none',
+};
+
 const Dashboard = () => {
   const rows = createData();
 
   return (
-    <Box sx={{ display: 'flex', backgroundColor: '#1F2937', minHeight: '100vh' }}>
-      <CssBaseline />
-      <AppBar position="fixed" sx={{ width: { sm: `calc(100% - ${drawerWidth}px)` }, ml: { sm: `${drawerWidth}px` }, backgroundColor: '#1F2937' }}>
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div" sx={{ color: '#fff' }}>
-            Your Site
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-            backgroundColor: '#27364a',
-            color: '#fff',
-          },
-        }}
-      >
-        <Toolbar />
-        <Divider />
-        <List>
-          {['Project', 'CRM', 'Sales', 'Crypto', 'Knowledge Base', 'Account'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon sx={{ color: '#fff' }}>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['Welcome', 'Access Denied'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon sx={{ color: '#fff' }}>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-      <Box style={{width:'100rem'}} component="main"  sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
-        <Toolbar />
+    <DashboardLayout>
+      <Typography variant="h3" gutterBottom color="textPrimary">
         <Grid container spacing={3} sx={{ mb: 3 }}>
           <Grid item xs={12} sm={6} md={3}>
-            <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#455A64' }}>
-              <Typography variant="h6" color="textPrimary">63 New Leads</Typography>
-              <Typography variant="body2" color="textSecondary">+2% this month</Typography>
+            <Paper sx={{ ...paperStyle, ...transparentBackground }}>
+              <Typography variant="h6" style={{ color: 'white' }}>63 New Leads</Typography>
+              <Typography variant="body2" color="textSecondary" style={{ color: 'white' }}>+2% this month</Typography>
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#455A64' }}>
-              <Typography variant="h6" color="textPrimary">25 Email</Typography>
-              <Typography variant="body2" color="textSecondary">+5.5% this month</Typography>
+            <Paper sx={{ ...paperStyle, ...transparentBackground }}>
+              <Typography variant="h6" style={{ color: 'white' }}>25 Email</Typography>
+              <Typography variant="body2" style={{ color: 'white' }}>+5.5% this month</Typography>
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#455A64' }}>
-              <Typography variant="h6" color="textPrimary">49 Proposals</Typography>
-              <Typography variant="body2" color="textSecondary">-0.7% this month</Typography>
+            <Paper sx={{ ...paperStyle, ...transparentBackground }}>
+              <Typography variant="h6" style={{ color: 'white' }}>49 Proposals</Typography>
+              <Typography variant="body2" style={{ color: 'white' }}>-0.7% this month</Typography>
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#455A64' }}>
-              <Typography variant="h6" color="textPrimary">12 Appointment</Typography>
-              <Typography variant="body2" color="textSecondary">+2.6% this month</Typography>
+            <Paper sx={{ ...paperStyle, ...transparentBackground }}>
+              <Typography variant="h6" style={{ color: 'white' }}>12 Appointment</Typography>
+              <Typography variant="body2" style={{ color: 'white' }}>+2.6% this month</Typography>
             </Paper>
           </Grid>
         </Grid>
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
-            <Paper sx={{ p: 2, bgcolor: '#455A64' }}>
-              <Typography variant="h6" color="textPrimary">Leads</Typography>
+            <Paper sx={{ ...paperStyle, ...transparentBackground }}>
               <Bar data={data} options={options} />
             </Paper>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#455A64' }}>
-              <Typography variant="h6" color="textPrimary">Email Sent</Typography>
+            <Paper sx={{ ...paperStyle, ...transparentBackground }}>
+              <Typography variant="h6" style={{ color: 'white' }}>Email Sent</Typography>
               <Box position="relative" display="inline-flex">
-                <CircularProgress variant="determinate" value={73} size={100} />
+                <CircularProgress variant="determinate" value={73} size={100} sx={{ color: 'rgb(85, 239, 196)' }} />
                 <Box
                   top={0}
                   left={0}
@@ -183,21 +136,21 @@ const Dashboard = () => {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Typography variant="caption" component="div" color="textSecondary">
+                  <Typography variant="caption" component="div" color="textSecondary" style={{color:'white'}}>
                     73%
                   </Typography>
                 </Box>
               </Box>
-              <Typography variant="body2" color="textSecondary">Performance: Average</Typography>
+              <Typography variant="body2" color="textSecondary" style={{color:'white'}}>Performance: Average</Typography>
             </Paper>
           </Grid>
         </Grid>
-        <Box sx={{ mt: 3 }} >
-          <Paper sx={{ p: 2, bgcolor: '#455A64' }}>
-            <Typography variant="h6" color="textPrimary" gutterBottom>
-              Random Data Table
+        <Box sx={{ mt: 3 }}>
+          <Paper sx={{ ...paperStyle, ...transparentBackground }}>
+            <Typography variant="h6" style={{ color: 'white' }} gutterBottom>
+              Leads
             </Typography>
-            <TableContainer>
+            <TableContainer sx={{ border: '1px solid rgba(255, 255, 255, 0.3)' }}> {/* Light white border */}
               <Table>
                 <TableHead>
                   <TableRow>
@@ -221,8 +174,8 @@ const Dashboard = () => {
             </TableContainer>
           </Paper>
         </Box>
-      </Box>
-    </Box>
+      </Typography>
+    </DashboardLayout>
   );
 };
 
